@@ -2,24 +2,54 @@
 <html>
 <head>
 </head>
+<style>
+    body {
+        text-align: center;
+        padding-top: 250px;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        background-color: rgb(251, 97, 97);
+        color: white;
+    }
+</style>
 <body>
-	<script>
-        let num = Math.floor(Math.random() * 11);
+    <form id="guessForm">
+        <label for="guessInput"><b>Guess a number between 1 and 10:</b></label>
+        <input type="number" id="guessInput" min="1" max="10" required>
+        <button type="submit">Submit</button>
+    </form>
 
-        let guess = prompt("guess a number between 1 and 10");
-        
-        while(){
-            
-            
-        }
+    <script>
+        let num = Math.floor(Math.random() * 10) + 1; // Generate random number between 1 and 10
+        let gotIt = false;
+        let numGuesses = 0;
 
-        if(num == guess)
-        {
-            alert("Got it!");
-        }else{
-            alert("Sorry!  You guessed " + guess + " and the number was " + num);
-        }
+        const guessForm = document.getElementById("guessForm");
+        const guessInput = document.getElementById("guessInput");
 
-	</script>
+        guessForm.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the form from submitting and refreshing the page
+
+            let guess = parseInt(guessInput.value);
+            numGuesses++;
+
+            if (num === guess) {
+                gotIt = true;
+            } else {
+                if (num > guess) {
+                    alert("Higher!");
+                } else {
+                    alert("Lower!");
+                }
+            }
+
+            if (gotIt) {
+                if (numGuesses === 1) {
+                    alert("Congratulations! You guessed the correct number, which was " + num + " and it took you " + numGuesses + " attempt!");
+                } else {
+                    alert("Congratulations! You guessed the correct number, which was " + num + " in " + numGuesses + " guesses!");
+                }
+            }
+        });
+    </script>
 </body>
 </html>
